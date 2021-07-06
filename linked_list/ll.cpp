@@ -112,6 +112,69 @@ void deletenode(node *&head, int val)
     delete todelete;
 }
 
+//reverse a linked list
+//there are two methods-:
+
+//i.itterative method
+node *reverse(node *&head)
+{
+
+    node *preptr = NULL;
+    node *currptr = head;
+    node *nextptr;
+
+    while (nextptr != NULL)
+    {
+        nextptr = currptr->next;
+        currptr->next = preptr;
+
+        preptr = currptr;
+        currptr = nextptr;
+    }
+    return preptr;
+}
+
+//ii. Recurcive method
+
+node *reverse_node(node *&head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+
+        return head;
+    }
+
+    node *newhead = reverse_node(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return newhead;
+}
+//reverse k node in a linked list
+
+node *reversek(node *&head, int k)
+{
+    node *currptr = head;
+    node *prevptr = head;
+    node *nextptr;
+
+    int count = 0;
+
+    while (currptr != NULL && count < k)
+    {
+
+        nextptr = currptr->next;
+        currptr->next = prevptr;
+        prevptr = currptr;
+        currptr = nextptr;
+        count++;
+    }
+
+    if (nextptr != NULL)
+    {
+        head->next = reversek(nextptr, k);
+    }
+    return prevptr;
+}
 
 //main function
 
