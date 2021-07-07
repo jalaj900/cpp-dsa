@@ -1,3 +1,15 @@
+//create node
+//display ll
+//insert at head
+//insert at tail
+//delete at head
+//delete any node
+//search element in ll
+//reverse ll
+//lenght of ll
+//reverse k nodes(two methods)
+//dectect a cycle
+//remove a cycle
 
 #include <iostream>
 using namespace std;
@@ -174,6 +186,72 @@ node *reversek(node *&head, int k)
         head->next = reversek(nextptr, k);
     }
     return prevptr;
+}
+//creating a cycle in a linked list
+
+void makeCycle(node *&head, int pos)
+{
+    node *temp = head;
+    node *startNode;
+
+    int count = 1;
+    while (temp->next != NULL)
+    {
+        if (count == pos)
+        {
+            startNode = temp;
+        }
+        temp = temp->next;
+        count++;
+    }
+    temp->next = startNode;
+}
+
+//dectection of cycle in a linked list
+bool detectCycle(node *&head)
+{
+    node *slow = head;
+    node *fast = head;
+
+    while (fast != NULL && fast->next != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    if (fast == slow)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+//remove cycle from linked list
+
+//find the intersection point and then move fast pointer to head
+//then move both pointers by one step
+//when the meet then make slow->next=NULL
+
+void removeCycle(node *&head)
+{
+    node *slow = head;
+    node *fast = head;
+
+    do
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    } while (slow != fast);
+
+    fast = head;
+
+    while (slow->next != fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next;
+    }
+    slow->next = NULL;
 }
 
 //main function
