@@ -1,10 +1,7 @@
-// to find lps find the lcs b/w the string and reverse of that string
-
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
-int lps(string x, string y)
+int lcs(string x, string y)
 {
     int m = x.length();
     int n = y.length();
@@ -28,7 +25,7 @@ int lps(string x, string y)
     {
         for (int j = 1; j < n + 1; j++)
         {
-            if (x[i - 1] == y[j - 1])
+            if (x[i - 1] == y[j - 1] && i!=j)
             {
                 t[i][j] = 1 + t[i - 1][j - 1];
             }
@@ -43,15 +40,12 @@ int lps(string x, string y)
     return t[m][n];
 }
 
-
 int main()
 {
-    string x, y;
+    string x;
+    cin >> x ;
 
-    cin >> x;
-    y=x;
-    reverse(x.begin(),x.end());
-    cout << lps(x, y) << endl;
+    cout << lcs(x, x) << endl;
 
     return 0;
 }
